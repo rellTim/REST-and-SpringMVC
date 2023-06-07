@@ -37,6 +37,7 @@ public class PostRepositoryImpl implements PostRepository {
             final var idPost = id.incrementAndGet();
             Post newPost = new Post(idPost, post.content());
             gagDataBases.put(idPost, newPost);
+            return newPost;
         }
         return post;
     }
@@ -50,8 +51,9 @@ public class PostRepositoryImpl implements PostRepository {
         if (gagDataBases.containsKey(id)) {
             gagRemoveDataBases.put(gagDataBases.get(id).id(), gagDataBases.get(id));
             gagDataBases.remove(id);
+        } else {
+            notFoundException();
         }
-        notFoundException();
     }
 
     private void notFoundException() {
